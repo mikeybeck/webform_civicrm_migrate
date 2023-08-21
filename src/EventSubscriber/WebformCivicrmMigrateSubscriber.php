@@ -70,6 +70,7 @@ class WebformCivicrmMigrateSubscriber implements EventSubscriberInterface {
     // First check migration ids for exact matches
     // - then we look for pattern matches
     switch($migration_id) {
+    case 'd7_webform':
     case 'upgrade_d7_webform':
       $this->migrateWebform($row);
       break;
@@ -89,7 +90,9 @@ class WebformCivicrmMigrateSubscriber implements EventSubscriberInterface {
     $migration = $event->getMigration();
     $migration_id = $migration->id();
     switch($migration_id) {
+    case 'd7_webform':
     case 'upgrade_d7_webform':
+    case 'd7_webform_submissions':
     case 'upgrade_d7_webform_submissions':
       \Drupal::service('civicrm')->initialize();
       break;
@@ -109,6 +112,7 @@ class WebformCivicrmMigrateSubscriber implements EventSubscriberInterface {
     $migration_id = $migration->id(); //
     $migration_map = $migration->getIdMap();
     switch($migration_id) {
+    case 'd7_webform':
     case 'upgrade_d7_webform':
       $webforms = WebformCivicrmMigrateSubscriber::getAllWebforms();
       foreach($webforms as $webform) {
